@@ -4,12 +4,7 @@ import { type } from "@testing-library/user-event/dist/type";
 
 // Initial state
 const initialState = {
-  transactions: [
-    { id: 1, text: "Test1", amount: -20 },
-    { id: 2, text: "Test2", amount: 300 },
-    { id: 3, text: "Test3", amount: -10 },
-    { id: 4, text: "Test4", amount: 150 },
-  ],
+  transactions: [],
 };
 
 // Create context
@@ -27,9 +22,20 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  function addTransaction(transaction) {
+    dispatch({
+      type: "ADD_TRANSACTION",
+      payload: transaction,
+    });
+  }
+
   return (
     <GlobalContext.Provider
-      value={{ transactions: state.transactions, deleteTransaction }}
+      value={{
+        transactions: state.transactions,
+        deleteTransaction,
+        addTransaction,
+      }}
     >
       {children}
     </GlobalContext.Provider>
